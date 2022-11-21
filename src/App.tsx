@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 import DisplayMovies from "./DisplayMovies";
@@ -22,10 +23,14 @@ const StyledApp = styled.div`
 `;
 
 const App = () => {
+  const [queryText, setQueryText] = useState("");
+  const [w2] = useState("22");
+  console.warn("app");
+  console.warn({ queryText });
   return (
     <StyledApp>
-      <NavigationBar />
-      <DisplayMovies query="black" />
+      <NavigationBar setQueryText={setQueryText} />
+      <DisplayMovies query={queryText} w2={w2} />
     </StyledApp>
   );
 };

@@ -28,13 +28,14 @@ interface Movie {
 
 interface DisplayMoviesProps {
   query: string;
+  w2: string;
 }
 
-const DisplayMovies = ({ query }: DisplayMoviesProps) => {
+const DisplayMovies = ({ query, w2 }: DisplayMoviesProps) => {
   const { loading, error, data } = useQuery(SEARCH_MOVIE, {
-    variables: { query },
+    variables: { query: query },
   });
-
+  console.warn({ query, w2 });
   if (loading)
     return (
       <Spinner animation="border" role="status">
@@ -42,7 +43,9 @@ const DisplayMovies = ({ query }: DisplayMoviesProps) => {
       </Spinner>
     );
   if (error) return <p>Error : {error.message}</p>;
-
+  if (!data.searchMovie || !data.searchMovie.movies) {
+    return <></>;
+  }
   return data.searchMovie.movies.map((movie: Movie) => (
     <Card key={movie.id} className="mb-2">
       <Card.Header key={`${movie.id}Header`}>
