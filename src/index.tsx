@@ -5,7 +5,7 @@ import App from "./App";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "https://flyby-gateway.herokuapp.com/",
+  uri: "https://ql-movie-api.herokuapp.com/graphql",
   cache: new InMemoryCache(),
 });
 

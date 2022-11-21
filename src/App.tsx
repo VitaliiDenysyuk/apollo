@@ -1,50 +1,30 @@
-import React from "react";
-import { useQuery, gql } from "@apollo/client";
+import styled from "styled-components";
 
-const GET_LOCATIONS = gql`
-  query GetLocations {
-    locations {
-      id
-      name
-      description
-      photo
-    }
-  }
+import DisplayMovies from "./DisplayMovies";
+
+const StyledApp = styled.div`
+  background-image: linear-gradient(to bottom, #bbb 50%, transparent 50%),
+    linear-gradient(
+      to right,
+      #bbb 10px,
+      transparent 10px 20px,
+      #bbb 20px calc(100% - 20px),
+      transparent calc(100% - 20px) calc(100% - 10px),
+      #bbb 10px
+    );
+
+  background-size: 100% 20px;
+  padding: 10px 30px;
 `;
-
-interface DataApollo {
-  id: string;
-  name: string;
-  description: string;
-  photo: string;
-}
-
-const DisplayLocations = () => {
-  const { loading, error, data } = useQuery(GET_LOCATIONS);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-
-  return data.locations.map(({ id, name, description, photo }: DataApollo) => (
-    <div key={id}>
-      <h3>{name}</h3>
-      <img width="400" height="250" alt="location-reference" src={`${photo}`} />
-      <br />
-      <b>About this location:</b>
-      <p>{description}</p>
-      <br />
-    </div>
-  ));
-};
 
 const App = () => {
   return (
-    <div>
+    <StyledApp>
       <header>
-        <p>Learn apollo</p>
+        <h1>Search movie in database</h1>
       </header>
-      <DisplayLocations />
-    </div>
+      <DisplayMovies query="black" />
+    </StyledApp>
   );
 };
 
