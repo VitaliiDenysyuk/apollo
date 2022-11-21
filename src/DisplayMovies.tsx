@@ -1,5 +1,6 @@
 import { useQuery, gql } from "@apollo/client";
 import Card from "react-bootstrap/Card";
+import Spinner from "react-bootstrap/Spinner";
 
 const SEARCH_MOVIE = gql`
   query searchMovie($query: String!) {
@@ -34,7 +35,12 @@ const DisplayMovies = ({ query }: DisplayMoviesProps) => {
     variables: { query },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
   if (error) return <p>Error : {error.message}</p>;
 
   return data.searchMovie.movies.map((movie: Movie) => (
