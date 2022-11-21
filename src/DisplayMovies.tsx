@@ -46,6 +46,10 @@ interface DisplayMoviesProps {
   query: string;
 }
 
+const dateFormat = (s: string) => {
+  return new Date(s).toLocaleDateString();
+};
+
 const DisplayMovies = ({ query }: DisplayMoviesProps) => {
   const { loading, error, data } = useQuery(
     query ? SEARCH_MOVIE : POPULAR_MOVIE,
@@ -77,9 +81,9 @@ const DisplayMovies = ({ query }: DisplayMoviesProps) => {
         <Card.Title key={`${movie.id}Title`}>{movie.original_title}</Card.Title>
       </Card.Header>
       <Card.Body key={`${movie.id}Body`}>
-        <Card.Text
-          key={`${movie.id}Text1`}
-        >{`Language: ${movie.original_language}, release date: ${movie.release_date}`}</Card.Text>
+        <Card.Text key={`${movie.id}Text1`}>{`Language: ${
+          movie.original_language
+        }, release date: ${dateFormat(movie.release_date)}`}</Card.Text>
         <Card.Text key={`${movie.id}Text`}>
           {`Vote average: ${movie.vote_average}, vote count: ${movie.vote_count}`}
         </Card.Text>
