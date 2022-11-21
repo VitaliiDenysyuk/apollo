@@ -1,4 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
+import Card from "react-bootstrap/Card";
 
 const SEARCH_MOVIE = gql`
   query searchMovie($query: String!) {
@@ -14,7 +15,6 @@ const SEARCH_MOVIE = gql`
     }
   }
 `;
-
 
 interface Movie {
   id: number;
@@ -38,13 +38,19 @@ const DisplayMovies = ({ query }: DisplayMoviesProps) => {
   if (error) return <p>Error : {error.message}</p>;
 
   return data.searchMovie.movies.map((movie: Movie) => (
-    <div key={movie.id}>
-      <h3>{movie.original_title}</h3>
-      <br />
-      <b>Language:</b>
-      <p>{movie.original_language}</p>
-      <br />
-    </div>
+    <Card key={movie.id} className="mb-2">
+      <Card.Header key={`${movie.id}Header`}>
+        <Card.Title key={`${movie.id}Title`}>{movie.original_title}</Card.Title>
+      </Card.Header>
+      <Card.Body key={`${movie.id}Body`}>
+        <Card.Text
+          key={`${movie.id}Text1`}
+        >{`Language: ${movie.original_language}, release date: ${movie.release_date}`}</Card.Text>
+        <Card.Text key={`${movie.id}Text`}>
+          {`Vote average: ${movie.vote_average}, vote count: ${movie.vote_count}`}
+        </Card.Text>
+      </Card.Body>
+    </Card>
   ));
 };
 

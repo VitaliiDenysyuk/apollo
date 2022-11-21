@@ -4,7 +4,9 @@ import DisplayMovies from "./DisplayMovies";
 import NavigationBar from "./NavigationBar";
 
 const StyledApp = styled.div`
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   background-image: linear-gradient(to bottom, #bbb 50%, transparent 50%),
     linear-gradient(
       to right,
@@ -16,18 +18,13 @@ const StyledApp = styled.div`
     );
 
   background-size: 100% 20px;
-  padding: 10px 30px;
-`;
-
-const Header = styled.h1`
-  font-size: 2rem;
+  padding: 10px 30px 20px 30px;
 `;
 
 const App = () => {
   return (
     <StyledApp>
       <NavigationBar />
-      <Header>Search movies in database</Header>
       <DisplayMovies query="black" />
     </StyledApp>
   );

@@ -5,7 +5,7 @@ import { CameraReels } from "react-bootstrap-icons";
 
 const NavigationBar = () => {
   return (
-    <Navbar bg="dark" variant="dark" className="d-flex justify-content-between px-2">
+    <Navbar bg="dark" variant="dark" className="d-flex justify-content-between px-2 mb-2">
       <Navbar.Brand href="/" className="d-flex">
         <CameraReels width="25" height="25" className="me-2" />
         Search movies in database
