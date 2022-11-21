@@ -1,10 +1,26 @@
 import { useQuery, gql } from "@apollo/client";
 import Card from "react-bootstrap/Card";
 import Spinner from "react-bootstrap/Spinner";
+import Alert from "react-bootstrap/Alert";
 
 const SEARCH_MOVIE = gql`
   query searchMovie($query: String!) {
     searchMovie(query: $query) {
+      movies {
+        id
+        original_title
+        original_language
+        release_date
+        vote_average
+        vote_count
+      }
+    }
+  }
+`;
+
+const POPULAR_MOVIE = gql`
+  query popularMovies {
+    popularMovies {
       movies {
         id
         original_title
@@ -31,9 +47,15 @@ interface DisplayMoviesProps {
 }
 
 const DisplayMovies = ({ query }: DisplayMoviesProps) => {
-  const { loading, error, data } = useQuery(SEARCH_MOVIE, {
-    variables: { query: query },
-  });
+  const { loading, error, data } = useQuery(
+    query ? SEARCH_MOVIE : POPULAR_MOVIE,
+    query
+      ? {
+          variables: { query: query },
+        }
+      : undefined
+  );
+
   if (loading)
     return (
       <Spinner animation="border" role="status">
@@ -41,10 +63,15 @@ const DisplayMovies = ({ query }: DisplayMoviesProps) => {
       </Spinner>
     );
   if (error) return <p>Error : {error.message}</p>;
-  if (!data.searchMovie || !data.searchMovie.movies) {
-    return <></>;
+  const selectMovies = query ? data.searchMovie : data.popularMovies;
+  if (!selectMovies || !selectMovies.movies) {
+    return (
+      <Alert key="danger" variant="danger">
+        {`No movie contains a word ${query}`}
+      </Alert>
+    );
   }
-  return data.searchMovie.movies.map((movie: Movie) => (
+  return selectMovies.movies.map((movie: Movie) => (
     <Card key={movie.id} className="mb-2">
       <Card.Header key={`${movie.id}Header`}>
         <Card.Title key={`${movie.id}Title`}>{movie.original_title}</Card.Title>
