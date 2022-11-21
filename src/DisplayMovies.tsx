@@ -28,14 +28,12 @@ interface Movie {
 
 interface DisplayMoviesProps {
   query: string;
-  w2: string;
 }
 
-const DisplayMovies = ({ query, w2 }: DisplayMoviesProps) => {
+const DisplayMovies = ({ query }: DisplayMoviesProps) => {
   const { loading, error, data } = useQuery(SEARCH_MOVIE, {
     variables: { query: query },
   });
-  console.warn({ query, w2 });
   if (loading)
     return (
       <Spinner animation="border" role="status">

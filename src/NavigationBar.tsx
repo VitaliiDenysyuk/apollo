@@ -3,7 +3,6 @@ import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
 import { CameraReels } from "react-bootstrap-icons";
 import React, { ChangeEvent, KeyboardEvent, useState } from "react";
-import Container from "react-bootstrap/Container";
 
 interface NavigationBarProps {
   setQueryText: React.Dispatch<React.SetStateAction<string>>;
@@ -13,14 +12,11 @@ const NavigationBar = ({ setQueryText }: NavigationBarProps) => {
   const [text, setText] = useState("");
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
-    console.warn(text);
   };
   const onClickHandler = () => {
-    console.warn(text);
     setQueryText(text);
   };
   const onKeyDownHandler = (key: KeyboardEvent<HTMLInputElement>) => {
-    console.warn({ key });
     if (key.code === "Enter") {
       setQueryText(text);
     }

@@ -24,13 +24,10 @@ const StyledApp = styled.div`
 
 const App = () => {
   const [queryText, setQueryText] = useState("");
-  const [w2] = useState("22");
-  console.warn("app");
-  console.warn({ queryText });
   return (
     <StyledApp>
       <NavigationBar setQueryText={setQueryText} />
-      <DisplayMovies query={queryText} w2={w2} />
+      <DisplayMovies query={queryText} />
     </StyledApp>
   );
 };
